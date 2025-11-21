@@ -4,7 +4,7 @@
 // Member 2:  Jort Kuipers 2111446
 
 include "assignment.dfy"
- 
+
 /**
     Add preconditions (requires) and postconditions (ensures) and an implementation (body) 
     to this method.
@@ -13,12 +13,43 @@ include "assignment.dfy"
     not on its implementation. 
  */
 module Submission refines Assignment {
-    // Note that while you CAN remove this time limit, we will put it back when
-    // we start grading. Please leave it in and use it as a guide. Submissions
-    // that time out are considered wrong.
-    @TimeLimit(60)
-    method BinSearchSegment(a: seq<int>, key: int, lo: nat, hi: nat) returns (here: nat)
-        decreases hi - lo // keep this line
-        // TODO 
+  // Note that while you CAN remove this time limit, we will put it back when
+  // we start grading. Please leave it in and use it as a guide. Submissions
+  // that time out are considered wrong.
+  @TimeLimit(60)
+  method BinSearchSegment(a: seq<int>, key: int, lo: nat, hi: nat) returns (here: nat)
+    decreases hi - lo // keep this line
+    // TODO
+    requires 0 <= lo < hi <= |a| - 1
+    requires a[lo] <= key < a[hi]
+    requires |a| >= 2
+    requires hi - lo >= 1
+    //ensures lo <= here < hi
+    //ensures a[here] <= key < a[here + 1]
 
+  {
+    var newhi: nat;
+    var newlo: nat;
+    var mi : nat;
+
+    if ((hi + lo) % 2 == 1) {
+      mi := (hi + lo + 1) / 2;
+    } else {
+      mi := (hi + lo) / 2;
+    }
+
+    assert (hi - lo) > 1 ==> lo < mi < hi; //not needed but nice to check
+
+    if (hi - lo == 1) {
+      here := 404; //404 means not in the found passage
+    } else if (key < a[mi]) {
+      newhi := mi;
+      newlo := lo;
+      here := BinSearchSegment(a, key, newlo, newhi);
+    } else {
+      newhi := hi;
+      newlo := mi;
+      here := BinSearchSegment(a, key, newlo, newhi);
+    }
+  }
 }
