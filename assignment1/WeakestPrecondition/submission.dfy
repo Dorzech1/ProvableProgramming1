@@ -1,6 +1,6 @@
 // Please, before you do anything else, add your names here:
-// Group:    <Group number>
-// Member 1: <Full name 1>: <Student number 1>
+// Group:    69
+// Member 1: Dominika Orzechowska: 2098199
 // Member 2: <Full name 2>: <Student number 2>
 
 include "assignment.dfy" 
