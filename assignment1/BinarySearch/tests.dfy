@@ -8,8 +8,8 @@ abstract module Tests {
     var a := [1, 3, 2, 4, 5, 6];
     var h;
     h := Submission.BinSearchSegment(a, 2, 0, 1);
-    //assert a[h] <= 2;
-    //assert a[h+1] > 2;
+    assert a[h] <= 2;
+    assert a[h+1] > 2;
     assert h == 0;
   }
 
@@ -18,7 +18,7 @@ abstract module Tests {
     var a := [1, 3, 2, 4, 6, 8];
     var h;
     h := Submission.BinSearchSegment(a, 4, 0, |a|-1);
-    assert h == 3;
+    assert h == 3; 
   }
 
   @TimeLimit(60)

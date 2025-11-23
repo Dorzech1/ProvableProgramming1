@@ -19,29 +19,22 @@ module Submission refines Assignment {
   @TimeLimit(60)
   method BinSearchSegment(a: seq<int>, key: int, lo: nat, hi: nat) returns (here: nat)
     decreases hi - lo // keep this line
-    // TODO
     requires 0 <= lo < hi <= |a| - 1
     requires a[lo] <= key < a[hi]
-    requires |a| >= 2
-    requires hi - lo >= 1
-    //ensures lo <= here < hi
-    //ensures a[here] <= key < a[here + 1]
+    ensures lo <= here < hi
+    ensures a[here] <= key < a[here + 1]
 
   {
     var newhi: nat;
     var newlo: nat;
     var mi : nat;
 
-    if ((hi + lo) % 2 == 1) {
-      mi := (hi + lo + 1) / 2;
-    } else {
-      mi := (hi + lo) / 2;
-    }
-
+    mi := (hi + lo) / 2;
     assert (hi - lo) > 1 ==> lo < mi < hi; //not needed but nice to check
 
     if (hi - lo == 1) {
-      here := 404; //404 means not in the found passage
+      assert a[lo] <= key < a[hi]; //not needed but nice to check
+      here := lo;
     } else if (key < a[mi]) {
       newhi := mi;
       newlo := lo;
